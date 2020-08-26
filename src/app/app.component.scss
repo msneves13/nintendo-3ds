@@ -1,0 +1,609 @@
+@import "../assets/settings/color";
+@import "../assets/tools/responsiveness.scss";
+
+%border {
+  border: solid;
+  border-width: 1px;
+  border-color: $mirage;
+
+  @include respond-to("sm") {
+    border-width: 2px;
+  }
+}
+
+%display {
+  @extend %border;
+
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  grid-area: display;
+  border-radius: 0.125rem;
+
+  @include respond-to("sm") {
+    border-radius: 0.25rem;
+  }
+}
+
+.grid,
+.section {
+  width: 100%;
+  position: relative;
+}
+
+.grid {
+  margin: auto;
+  display: grid;
+
+  height: 21rem;
+  width: 19.5rem;
+
+  grid-template-rows: 47% 53%;
+  grid-template-columns: auto;
+  grid-template-areas: "top" "bottom";
+
+  @include respond-to("sm") {
+    height: 42rem;
+    width: 39rem;
+  }
+
+  & > .section {
+    @extend %border;
+
+    height: 100%;
+    display: grid;
+
+    & > .middle {
+      display: grid;
+      grid-area: middle;
+
+      border-bottom: unset;
+      grid-template-rows: 0.15fr 1fr;
+      grid-template-columns: 1fr;
+      grid-template-areas: "top" "screen";
+
+      & > .header {
+        display: grid;
+        grid-area: top;
+
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: "left sensors right";
+
+        & > .sensors {
+          margin: auto;
+          left: 0.5rem;
+          display: grid;
+          grid-area: sensors;
+          position: relative;
+
+          grid-template-rows: 0.5fr;
+          grid-template-columns: 1fr 1fr;
+          grid-template-areas: "camera infrared";
+
+          @include respond-to("sm") {
+            left: 0.75rem;
+          }
+
+          & > .camera {
+            @extend %border;
+
+            grid-area: camera;
+
+            margin: auto;
+            width: 1rem;
+            height: 1rem;
+
+            border-radius: 50%;
+
+            @include respond-to("sm") {
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
+
+          & > .infrared {
+            @extend %border;
+
+            grid-area: infrared;
+
+            margin: auto;
+            width: 0.5rem;
+            height: 0.5rem;
+
+            border-radius: 50%;
+
+            @include respond-to("sm") {
+              width: 0.75rem;
+              height: 0.75rem;
+            }
+          }
+        }
+
+        & > .protector {
+          @extend %border;
+
+          margin: auto;
+          border-radius: 50%;
+
+          width: 0.5rem;
+          height: 0.5rem;
+
+          @include respond-to("sm") {
+            width: 1rem;
+            height: 1rem;
+          }
+
+          &.left {
+            grid-area: left;
+          }
+
+          &.right {
+            grid-area: right;
+          }
+        }
+      }
+
+      & > .screen {
+        @extend %border;
+
+        top: 1px;
+        display: grid;
+        position: relative;
+        grid-area: screen;
+        border-radius: 0.25rem;
+
+        grid-template-areas: "display";
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+
+        padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+
+        @include respond-to("sm") {
+          top: 2px;
+          border-radius: 0.5rem;
+          padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+        }
+
+        & > .display {
+          @extend %display;
+        }
+      }
+    }
+
+    &.top {
+      grid-area: top;
+      border-bottom: unset;
+      border-radius: 1.25rem 1.25rem 0.25rem 0.25rem;
+
+      grid-template-rows: auto;
+      grid-template-columns: 1fr 5fr 1fr;
+      grid-template-areas: "left middle right";
+
+      @include respond-to("sm") {
+        border-radius: 2.5rem 2.5rem 0.5rem 0.5rem;
+      }
+
+      & > .speaker {
+        display: grid;
+        grid-area: left;
+
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "." "holes" "cover";
+
+        &.left {
+          grid-area: left;
+        }
+
+        &.right {
+          grid-area: right;
+        }
+
+        & > .holes {
+          margin: auto;
+          display: grid;
+          grid-area: holes;
+
+          grid-template-rows: 0.5rem 0.5rem 0.5rem;
+          grid-template-columns: 0.5rem 0.5rem 0.5rem;
+          grid-template-areas: ". top ." "left center right" ". bottom .";
+
+          @include respond-to("sm") {
+            grid-template-rows: 1rem 1rem 1rem;
+            grid-template-columns: 1rem 1rem 1rem;
+          }
+
+          & > .hole {
+            @extend %border;
+
+            width: 50%;
+            height: 50%;
+            margin: auto;
+            border-radius: 50%;
+
+            &.top {
+              grid-area: top;
+            }
+
+            &.left {
+              grid-area: left;
+            }
+
+            &.center {
+              grid-area: center;
+            }
+
+            &.right {
+              grid-area: right;
+            }
+
+            &.bottom {
+              grid-area: bottom;
+            }
+          }
+        }
+
+        & > .cover {
+          @extend %border;
+
+          z-index: 0;
+          width: 58%;
+          height: 3%;
+          margin-top: auto;
+          grid-area: cover;
+          position: relative;
+          border-bottom: unset;
+          background: $background;
+
+          &.left {
+            left: 0.05rem;
+            margin-right: auto;
+            border-left: unset;
+            border-radius: 0 0.125rem 0 0;
+
+            @include respond-to("sm") {
+              border-radius: 0 0.25rem 0 0;
+            }
+          }
+
+          &.right {
+            right: 0.05rem;
+            margin-left: auto;
+            border-right: unset;
+            border-radius: 0.125rem 0 0 0;
+
+            @include respond-to("sm") {
+              border-radius: 0.25rem 0 0 0;
+            }
+          }
+        }
+      }
+    }
+
+    &.bottom {
+      grid-area: bottom;
+      border-top: unset;
+      border-radius: 0.5rem 0.5rem 1.25rem 1.25rem;
+
+      grid-template-rows: 0.1fr 1fr;
+      grid-template-columns: 1fr;
+      grid-template-areas: "fold" "face";
+
+      @include respond-to("sm") {
+        border-radius: 1rem 1rem 2.5rem 2.5rem;
+      }
+
+      & > .fold {
+        @extend %border;
+
+        left: -1px;
+        height: 100%;
+        width: 19.5rem;
+        height: 1.125rem;
+        position: absolute;
+        border-radius: 0.5rem;
+
+        display: grid;
+        grid-area: fold;
+        grid-template-rows: auto;
+        grid-template-columns: 0.1fr 1fr 0.1fr;
+        grid-template-areas: "left . right";
+
+        @include respond-to("sm") {
+          left: -2px;
+          width: 39rem;
+          height: 2.25rem;
+          border-radius: 1rem;
+        }
+
+        & > .side {
+          @extend %border;
+
+          border-top: unset;
+          border-bottom: unset;
+
+          &.left {
+            grid-area: left;
+            border-left: unset;
+          }
+
+          &.right {
+            display: grid;
+            grid-area: right;
+            border-right: unset;
+
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr;
+            grid-template-areas: "notification";
+
+            & > .notification {
+              @extend %border;
+
+              margin: auto;
+              width: 0.25rem;
+              height: 0.25rem;
+              border-radius: 35%;
+              grid-area: notification;
+
+              @include respond-to("sm") {
+                width: 0.5rem;
+                height: 0.5rem;
+              }
+            }
+          }
+        }
+      }
+
+      & > .face {
+        display: grid;
+        grid-area: face;
+
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-areas: "left middle right";
+
+        & > .directional {
+          display: grid;
+          grid-area: left;
+
+          grid-template-rows: 1fr 1fr;
+          grid-template-columns: 1fr;
+          grid-template-areas: "joystick" "dpad";
+
+          & > .joystick {
+            @extend %border;
+
+            margin: auto;
+            width: 3rem;
+            height: 3rem;
+
+            grid-area: joystick;
+            display: grid;
+            border-radius: 50%;
+
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr;
+            grid-template-areas: "stick";
+
+            @include respond-to("sm") {
+              width: 6rem;
+              height: 6rem;
+            }
+
+            & > .stick {
+              @extend %border;
+              width: 70%;
+              height: 70%;
+              margin: auto;
+              border-radius: 50%;
+              position: relative;
+            }
+          }
+
+          & > .dpad {
+            width: 2.5rem;
+            height: 2.5rem;
+
+            margin: 0 auto auto auto;
+            display: grid;
+            grid-area: dpad;
+
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas: ". top ." "left center right" ". bottom .";
+
+            @include respond-to("sm") {
+              width: 5rem;
+              height: 5rem;
+            }
+
+            & > .pad {
+              @extend %border;
+              margin: -0.5px;
+
+              @include respond-to("sm") {
+                margin: -1px;
+              }
+
+              &.top {
+                grid-area: top;
+                border-bottom: unset;
+                border-radius: 0.125rem 0.125rem 0 0;
+
+                @include respond-to("sm") {
+                  border-radius: 0.25rem 0.25rem 0 0;
+                }
+              }
+
+              &.left {
+                grid-area: left;
+                border-right: unset;
+                border-radius: 0.125rem 0 0 0.125rem;
+
+                @include respond-to("sm") {
+                  border-radius: 0.25rem 0 0 0.25rem;
+                }
+              }
+
+              &.right {
+                grid-area: right;
+                border-left: unset;
+                border-radius: 0 0.125rem 0.125rem 0;
+
+                @include respond-to("sm") {
+                  border-radius: 0 0.25rem 0.25rem 0;
+                }
+              }
+
+              &.bottom {
+                grid-area: bottom;
+                border-top: unset;
+                border-radius: 0 0 0.125rem 0.125rem;
+
+                @include respond-to("sm") {
+                  border-radius: 0 0 0.25rem 0.25rem;
+                }
+              }
+
+              &.center {
+                grid-area: center;
+                border: unset;
+              }
+            }
+          }
+        }
+
+        & > .touchpad {
+          @extend %border;
+
+          top: 1px;
+          display: grid;
+          grid-area: middle;
+          position: relative;
+
+          grid-template-rows: 1fr 0.15fr;
+          grid-template-columns: 1fr;
+          grid-template-areas: "display" "home";
+
+          padding: 0.25rem 0.25rem 0 0.25rem;
+          border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
+
+          @include respond-to("sm") {
+            top: 2px;
+            padding: 0.5rem 0.5rem 0 0.5rem;
+            border-radius: 0.5rem 0.5rem 1.5rem 1.5rem;
+          }
+
+          .display {
+            @extend %display;
+          }
+
+          & > .home {
+            @extend %border;
+
+            width: 1rem;
+            margin: auto;
+            height: 0.5rem;
+            grid-area: home;
+            border-radius: 0.25rem;
+
+            @include respond-to("sm") {
+              width: 2rem;
+              height: 1rem;
+              border-radius: 0.5rem;
+            }
+          }
+        }
+
+        & > .buttons {
+          grid-area: right;
+          display: grid;
+
+          grid-template-rows: 1fr 0.7fr;
+          grid-template-columns: 1fr;
+          grid-template-areas: "action" "usability";
+
+          & > .action {
+            width: 3rem;
+            height: 4rem;
+            margin: auto;
+            display: grid;
+            grid-area: action;
+
+            @include respond-to("sm") {
+              width: 6rem;
+              height: 8rem;
+            }
+
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas: "c . ." ". x ." "y . a" ". b .";
+
+            & > .button {
+              @extend %border;
+
+              grid-area: action;
+              border-radius: 50%;
+
+              &.c {
+                width: 90%;
+                height: 90%;
+                grid-area: c;
+              }
+
+              &.x {
+                grid-area: x;
+              }
+
+              &.y {
+                grid-area: y;
+              }
+
+              &.a {
+                grid-area: a;
+              }
+
+              &.b {
+                grid-area: b;
+              }
+            }
+          }
+
+          & > .usability {
+            display: grid;
+            grid-area: usability;
+            grid-template-rows: 0.5fr 0.5fr;
+            grid-template-columns: 0.4fr;
+            grid-template-areas: "start" "select";
+
+            & > .button {
+              width: 0.75rem;
+              height: 0.75rem;
+              margin: auto;
+
+              @include respond-to("sm") {
+                width: 1.5rem;
+                height: 1.5rem;
+              }
+
+              &.start {
+                @extend %border;
+
+                grid-area: start;
+                border-radius: 50%;
+              }
+
+              &.select {
+                margin: 0 auto auto auto;
+                @extend %border;
+                grid-area: select;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
