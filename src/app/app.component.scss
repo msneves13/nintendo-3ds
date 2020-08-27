@@ -1,5 +1,6 @@
 @import "../assets/settings/color";
-@import "../assets/tools/responsiveness.scss";
+@import "../assets/tools/responsiveness";
+@import "../assets/settings/animation";
 
 %border {
   border: solid;
@@ -26,7 +27,7 @@
 }
 
 .grid,
-.section {
+.cover {
   width: 100%;
   position: relative;
 }
@@ -38,6 +39,8 @@
   height: 21rem;
   width: 19.5rem;
 
+  perspective: 7500px;
+
   grid-template-rows: 47% 53%;
   grid-template-columns: auto;
   grid-template-areas: "top" "bottom";
@@ -47,13 +50,13 @@
     width: 39rem;
   }
 
-  & > .section {
+  & > .cover {
     @extend %border;
 
     height: 100%;
     display: grid;
 
-    & > .middle {
+    & > .screen {
       display: grid;
       grid-area: middle;
 
@@ -171,14 +174,112 @@
       }
     }
 
+    &.back {
+      grid-area: top;
+      border-bottom: unset;
+      border-radius: 1.25rem 1.25rem 0.25rem 0.25rem;
+
+      background: $primary;
+
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 5fr 1fr;
+      grid-template-areas: "left . right";
+
+      animation-delay: $animation-delay;
+      animation-duration: $animation-time;
+      animation-iteration-count: $animation-count;
+      animation-direction: alternate;
+
+      z-index: 1;
+      transform-style: preserve-3d;
+
+      animation-name: closeBackCoverMobile;
+
+      @include respond-to("sm") {
+        animation-name: closeBackCoverDesktop;
+      }
+
+      @include respond-to("sm") {
+        border-radius: 2.5rem 2.5rem 0.5rem 0.5rem;
+      }
+
+      & > .section {
+        display: grid;
+        grid-area: left;
+
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "." "." "cover";
+
+        &.left {
+          grid-area: left;
+        }
+
+        &.right {
+          grid-area: right;
+        }
+
+        & > .tape {
+          @extend %border;
+
+          z-index: 0;
+          width: 58%;
+          height: 3%;
+          margin-top: auto;
+          grid-area: cover;
+          position: relative;
+          border-bottom: unset;
+          background: $primary;
+
+          &.left {
+            left: 0.05rem;
+            margin-right: auto;
+            border-left: unset;
+            border-radius: 0 0.125rem 0 0;
+
+            @include respond-to("sm") {
+              border-radius: 0 0.25rem 0 0;
+            }
+          }
+
+          &.right {
+            right: 0.05rem;
+            margin-left: auto;
+            border-right: unset;
+            border-radius: 0.125rem 0 0 0;
+
+            @include respond-to("sm") {
+              border-radius: 0.25rem 0 0 0;
+            }
+          }
+        }
+      }
+    }
+
     &.top {
       grid-area: top;
       border-bottom: unset;
       border-radius: 1.25rem 1.25rem 0.25rem 0.25rem;
 
-      grid-template-rows: auto;
+      background: $primary;
+
+      grid-template-rows: 1fr;
       grid-template-columns: 1fr 5fr 1fr;
       grid-template-areas: "left middle right";
+
+      animation-delay: $animation-delay;
+      animation-duration: $animation-time;
+      animation-iteration-count: $animation-count;
+      animation-direction: alternate;
+
+      z-index: 1;
+      transform-style: preserve-3d;
+
+      animation-name: closeCoverMobile;
+
+      @include respond-to("sm") {
+        animation-name: closeCoverDesktop;
+      }
 
       @include respond-to("sm") {
         border-radius: 2.5rem 2.5rem 0.5rem 0.5rem;
@@ -244,7 +345,7 @@
           }
         }
 
-        & > .cover {
+        & > .tape {
           @extend %border;
 
           z-index: 0;
@@ -255,6 +356,12 @@
           position: relative;
           border-bottom: unset;
           background: $background;
+
+          animation-delay: $animation-delay;
+          animation-duration: $animation-time;
+          animation-iteration-count: $animation-count;
+          animation-direction: alternate;
+          animation-name: changeCoverColor;
 
           &.left {
             left: 0.05rem;
@@ -285,6 +392,8 @@
       grid-area: bottom;
       border-top: unset;
       border-radius: 0.5rem 0.5rem 1.25rem 1.25rem;
+
+      background: $primary;
 
       grid-template-rows: 0.1fr 1fr;
       grid-template-columns: 1fr;
