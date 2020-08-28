@@ -13,7 +13,6 @@
 }
 
 %display {
-  @extend %border;
 
   width: 100%;
   height: 100%;
@@ -21,18 +20,27 @@
   grid-area: display;
   border-radius: 0.125rem;
 
+  background: linear-gradient(120deg, rgba(0, 0, 0, 1) 0%, rgba(17, 17, 17, 1) 53%, rgba(31, 31, 31, 1) 87%, rgba(33, 33, 33, 1) 100%);
+
   @include respond-to("sm") {
     border-radius: 0.25rem;
   }
 }
 
-.grid,
+%animation {
+  animation-delay: $animation-delay;
+  animation-duration: $animation-time;
+  animation-iteration-count: $animation-count;
+  animation-direction: $animation-direction;
+}
+
+.container,
 .cover {
   width: 100%;
   position: relative;
 }
 
-.grid {
+.container {
   margin: auto;
   display: grid;
 
@@ -89,24 +97,55 @@
           }
 
           & > .camera {
-            @extend %border;
 
             grid-area: camera;
 
             margin: auto;
             width: 1rem;
             height: 1rem;
+            display: grid;
 
             border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(17, 17, 17, 1) 63%, rgba(31, 31, 31, 1) 87%, rgba(33, 33, 33, 1) 100%);
+
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr;
+            grid-template-areas: "lens";
 
             @include respond-to("sm") {
               width: 1.5rem;
               height: 1.5rem;
             }
+
+            & > .lens {
+
+              background: lighten($black, 30%);
+
+              width: 60%;
+              height: 60%;
+              margin: auto;
+              display: grid;
+              grid-area: lens;
+              border-radius: 50%;
+
+              grid-template-rows: 1fr;
+              grid-template-columns: 1fr;
+              grid-template-areas: "shutter";
+
+              & > .shutter {
+
+                background: linear-gradient(45deg, lighten($black, 30%) 0%, $black 100%);
+
+                width: 50%;
+                height: 50%;
+                margin: auto;
+                grid-area: shutter;
+                border-radius: 50%;
+              }
+            }
           }
 
           & > .infrared {
-            @extend %border;
 
             grid-area: infrared;
 
@@ -115,6 +154,8 @@
             height: 0.5rem;
 
             border-radius: 50%;
+
+            background: linear-gradient(45deg, lighten($black, 10%) 0%, $black 100%);
 
             @include respond-to("sm") {
               width: 0.75rem;
@@ -132,9 +173,12 @@
           width: 0.5rem;
           height: 0.5rem;
 
+          box-shadow: inset -0.5px 0.5px 0 $light;
+
           @include respond-to("sm") {
             width: 1rem;
             height: 1rem;
+            box-shadow: inset -1px 1px 0 $light;
           }
 
           &.left {
@@ -162,10 +206,15 @@
 
         padding: 0.25rem 0.25rem 0.25rem 0.25rem;
 
+        background: $shadow;
+
+        box-shadow: inset 0 0 0 0.5px $shadow;
+
         @include respond-to("sm") {
           top: 2px;
           border-radius: 0.5rem;
           padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+          box-shadow: inset 0 0 0 1px $shadow;
         }
 
         & > .display {
@@ -175,6 +224,8 @@
     }
 
     &.back {
+      @extend %animation;
+
       grid-area: top;
       border-bottom: unset;
       border-radius: 1.25rem 1.25rem 0.25rem 0.25rem;
@@ -185,11 +236,6 @@
       grid-template-columns: 1fr 5fr 1fr;
       grid-template-areas: "left . right";
 
-      animation-delay: $animation-delay;
-      animation-duration: $animation-time;
-      animation-iteration-count: $animation-count;
-      animation-direction: alternate;
-
       z-index: 1;
       transform-style: preserve-3d;
 
@@ -197,10 +243,25 @@
 
       @include respond-to("sm") {
         animation-name: closeBackCoverDesktop;
+        border-radius: 2.5rem 2.5rem 0.5rem 0.5rem;
       }
 
-      @include respond-to("sm") {
-        border-radius: 2.5rem 2.5rem 0.5rem 0.5rem;
+      & > .bottom {
+        @extend %animation;
+
+        width: 100%;
+        height: 0.5rem;
+        position: absolute;
+        border-radius: 2.5px;
+        transform: rotateX(90deg) translate3d(0px, 4.5px, -20px);
+
+        animation-name: changeCoverThicknessColor;
+
+        @include respond-to("sm") {
+          height: 1rem;
+          border-radius: 5px;
+          transform: rotateX(90deg) translate3d(0px, 9px, -40px);
+        }
       }
 
       & > .section {
@@ -221,6 +282,7 @@
 
         & > .tape {
           @extend %border;
+          @extend %animation;
 
           z-index: 0;
           width: 58%;
@@ -230,6 +292,7 @@
           position: relative;
           border-bottom: unset;
           background: $primary;
+          animation-name: bottomCoverOpacity;
 
           &.left {
             left: 0.05rem;
@@ -257,6 +320,7 @@
     }
 
     &.top {
+      @extend %animation;
       grid-area: top;
       border-bottom: unset;
       border-radius: 1.25rem 1.25rem 0.25rem 0.25rem;
@@ -267,22 +331,17 @@
       grid-template-columns: 1fr 5fr 1fr;
       grid-template-areas: "left middle right";
 
-      animation-delay: $animation-delay;
-      animation-duration: $animation-time;
-      animation-iteration-count: $animation-count;
-      animation-direction: alternate;
-
       z-index: 1;
       transform-style: preserve-3d;
 
       animation-name: closeCoverMobile;
 
-      @include respond-to("sm") {
-        animation-name: closeCoverDesktop;
-      }
+      box-shadow: inset -0.25px 0.5px 0 0.5px $light, inset 0.5px 0 0 0.125px $shadow;
 
       @include respond-to("sm") {
+        animation-name: closeCoverDesktop;
         border-radius: 2.5rem 2.5rem 0.5rem 0.5rem;
+        box-shadow: inset -0.5px 1px 0 1px $light, inset 1px 0 0 0.25px $shadow;
       }
 
       & > .speaker {
@@ -322,6 +381,12 @@
             height: 50%;
             margin: auto;
             border-radius: 50%;
+            background: $shadow;
+            box-shadow: inset 0.25px -0.25px 0 0.25px $shadow;
+
+            @include respond-to("sm") {
+              box-shadow: inset 0.5px -0.5px 0 0.5px $shadow;
+            }
 
             &.top {
               grid-area: top;
@@ -347,6 +412,7 @@
 
         & > .tape {
           @extend %border;
+          @extend %animation;
 
           z-index: 0;
           width: 58%;
@@ -356,11 +422,6 @@
           position: relative;
           border-bottom: unset;
           background: $background;
-
-          animation-delay: $animation-delay;
-          animation-duration: $animation-time;
-          animation-iteration-count: $animation-count;
-          animation-direction: alternate;
           animation-name: changeCoverColor;
 
           &.left {
@@ -389,6 +450,8 @@
     }
 
     &.bottom {
+      @extend %animation;
+
       grid-area: bottom;
       border-top: unset;
       border-radius: 0.5rem 0.5rem 1.25rem 1.25rem;
@@ -399,11 +462,17 @@
       grid-template-columns: 1fr;
       grid-template-areas: "fold" "face";
 
+      animation-name: bottomCoverOpacity;
+
+      box-shadow: inset -0.25px 0.5px 0 0.5px $light, inset 0.5px 0 0 0.125px $shadow;
+
       @include respond-to("sm") {
         border-radius: 1rem 1rem 2.5rem 2.5rem;
+        box-shadow: inset -0.5px 1px 0 1px $light, inset 1px 0 0 0.25px $shadow;
       }
 
       & > .fold {
+        @extend %animation;
         @extend %border;
 
         left: -1px;
@@ -415,15 +484,21 @@
 
         display: grid;
         grid-area: fold;
+
         grid-template-rows: auto;
         grid-template-columns: 0.1fr 1fr 0.1fr;
         grid-template-areas: "left . right";
+
+        animation-name: foldOpacity;
+
+        box-shadow: inset -0.5px 0.5px 0 $light, inset 0.5px -0.5px 0 $shadow;
 
         @include respond-to("sm") {
           left: -2px;
           width: 39rem;
           height: 2.25rem;
           border-radius: 1rem;
+          box-shadow: inset -1px 1px 0 $light, inset 1px -1px 0 $shadow;
         }
 
         & > .side {
@@ -495,9 +570,12 @@
             grid-template-columns: 1fr;
             grid-template-areas: "stick";
 
+            box-shadow: inset -0.5px 0.25px 0 0.5px $shadow, -0.5px 0.25px $light;
+
             @include respond-to("sm") {
               width: 6rem;
               height: 6rem;
+              box-shadow: inset -1px 0.5px 0 1px $shadow, -1px 0.5px $light;
             }
 
             & > .stick {
@@ -507,6 +585,12 @@
               margin: auto;
               border-radius: 50%;
               position: relative;
+              box-shadow: inset 1px -1px 0 0 $shadow, inset 0 0 0 1px $light, -2px 1px 0 0 $shadow;
+              background: linear-gradient(225deg, rgb(131, 131, 131) 0%, rgba(214, 214, 214, 1) 100%);
+
+              @include respond-to("sm") {
+                box-shadow: inset 2px -2px 0 0 $shadow, inset 0 0 0 2px $light, -4px 2px 0 0 $shadow;
+              }
             }
           }
 
@@ -529,7 +613,10 @@
 
             & > .pad {
               @extend %border;
+              z-index: 1;
               margin: -0.5px;
+
+              background: $secondary;
 
               @include respond-to("sm") {
                 margin: -1px;
@@ -539,18 +626,21 @@
                 grid-area: top;
                 border-bottom: unset;
                 border-radius: 0.125rem 0.125rem 0 0;
+                box-shadow: inset -0.5px 0.5px 0 0 $light, -2px 0 0 -1px $shadow;
 
                 @include respond-to("sm") {
                   border-radius: 0.25rem 0.25rem 0 0;
+                  box-shadow: inset -1px 1px 0 0 $light, -4px 0 0 -2px $shadow;
                 }
               }
 
               &.left {
                 grid-area: left;
                 border-right: unset;
+                box-shadow: -1px 1px 0 0 $shadow;
                 border-radius: 0.125rem 0 0 0.125rem;
-
                 @include respond-to("sm") {
+                  box-shadow: -2px 2px 0 0 $shadow;
                   border-radius: 0.25rem 0 0 0.25rem;
                 }
               }
@@ -558,9 +648,11 @@
               &.right {
                 grid-area: right;
                 border-left: unset;
+                box-shadow: inset -0.5px 0.5px 0 0 $light;
                 border-radius: 0 0.125rem 0.125rem 0;
 
                 @include respond-to("sm") {
+                  box-shadow: inset -1px 1px 0 0 $light;
                   border-radius: 0 0.25rem 0.25rem 0;
                 }
               }
@@ -569,13 +661,16 @@
                 grid-area: bottom;
                 border-top: unset;
                 border-radius: 0 0 0.125rem 0.125rem;
+                box-shadow: inset -0.5px 0 0 $light, -1px 0 0 $shadow;
 
                 @include respond-to("sm") {
                   border-radius: 0 0 0.25rem 0.25rem;
+                  box-shadow: inset -1px 0 0 $light, -2px 0 0 $shadow;
                 }
               }
 
               &.center {
+                z-index: 0;
                 grid-area: center;
                 border: unset;
               }
@@ -598,10 +693,13 @@
           padding: 0.25rem 0.25rem 0 0.25rem;
           border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
 
+          box-shadow: -0.5px 0.25px 0 0 $shadow, inset -0.5px -0.25px 0 0 $light, inset 0.5px -0.25px 0 0 $shadow;
+
           @include respond-to("sm") {
             top: 2px;
             padding: 0.5rem 0.5rem 0 0.5rem;
             border-radius: 0.5rem 0.5rem 1.5rem 1.5rem;
+            box-shadow: -1px 0.5px 0 0 $shadow, inset -1px -0.5px 0 0 $light, inset 0.5px -0.5px 0 0 $shadow;
           }
 
           .display {
@@ -617,10 +715,15 @@
             grid-area: home;
             border-radius: 0.25rem;
 
+            background: $secondary;
+            box-shadow: inset -0.5px 0.5px 0 $light, -1px 0.5px 0 $shadow;
+
             @include respond-to("sm") {
               width: 2rem;
               height: 1rem;
               border-radius: 0.5rem;
+              box-shadow: inset -1px 1px 0 $light, -2px 1px 0 $shadow;
+
             }
           }
         }
@@ -654,27 +757,37 @@
 
               grid-area: action;
               border-radius: 50%;
+              box-shadow: inset -0.5px 0.5px 0 $light, -1px 0.5px 0 $shadow;
+
+              @include respond-to("sm") {
+                box-shadow: inset -1px 1px 0 $light, -2px 1px 0 $shadow;
+              }
 
               &.c {
                 width: 90%;
                 height: 90%;
                 grid-area: c;
+                background: $secondary;
               }
 
               &.x {
                 grid-area: x;
+                background: $button-x;
               }
 
               &.y {
                 grid-area: y;
+                background: $button-y;
               }
 
               &.a {
                 grid-area: a;
+                background: $button-a;
               }
 
               &.b {
                 grid-area: b;
+                background: $button-b;
               }
             }
           }
@@ -682,6 +795,7 @@
           & > .usability {
             display: grid;
             grid-area: usability;
+
             grid-template-rows: 0.5fr 0.5fr;
             grid-template-columns: 0.4fr;
             grid-template-areas: "start" "select";
@@ -690,6 +804,14 @@
               width: 0.75rem;
               height: 0.75rem;
               margin: auto;
+
+              background: $secondary;
+
+              box-shadow: inset -0.5px 0.5px 0 $light, -1px 0.5px 0 $shadow;
+
+              @include respond-to("sm") {
+                box-shadow: inset -1px 1px 0 $light, -2px 1px 0 $shadow;
+              }
 
               @include respond-to("sm") {
                 width: 1.5rem;

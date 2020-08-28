@@ -4,9 +4,19 @@ $mirage: #17212e;
 // Global
 $black: #000;
 $white: #fff;
-$background: rgb(36, 165, 165);
-$primary: #b43333;
+$transparent: #00000000;
+
+// 3DS Core
+$primary: #52ad5e;
+$background: #24a5a5;
+$secondary: darken($primary, 20%);
 
 // Shadow/Light
 $shadow: rgba(0, 0, 0, 25%);
-$light: rgba(255, 255, 255, 45%);
+$light: rgba(255, 255, 255, 60%);
+
+// 3DS Components
+$button-x: #5487c0;
+$button-y: #53a484;
+$button-a: #fc6064;
+$button-b: #dec15d;
