@@ -1,15 +1,16 @@
 // Body
-$mirage: #17212e;
+$background: #24a5a5;
 
 // Global
 $black: #000;
 $white: #fff;
+$mirage: #17212e;
 $transparent: #00000000;
 
 // 3DS Core
-$primary: #52ad5e;
-$background: #24a5a5;
-$secondary: darken($primary, 20%);
+$primary: #c43131;
+$secondary: darken($primary, 25%);
+$border-color: $mirage;
 
 // Shadow/Light
 $shadow: rgba(0, 0, 0, 25%);

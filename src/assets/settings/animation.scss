@@ -120,11 +120,11 @@ $animation-direction: alternate;
     background-color: $primary;
   }
 
-  10% {
+  60% {
     background: darken($primary, 20);
   }
   100% {
-    background-color: darken($primary, 20);
+    background-color: $primary;
   }
 }
 
