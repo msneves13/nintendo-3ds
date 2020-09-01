@@ -1,5 +1,5 @@
 // Body
-$background: #24a5a5;
+$background: #f06f6f;
 
 // Global
 $black: #000;
@@ -8,13 +8,17 @@ $mirage: #17212e;
 $transparent: #00000000;
 
 // 3DS Core
-$primary: #c43131;
-$secondary: darken($primary, 25%);
+$primary: #68b0e0;
+$secondary: darken($primary, 10%);
+
 $border-color: $mirage;
 
+$black-gradient: linear-gradient(-85deg, $black 30%, $mirage 100%);
+$primary-gradient: linear-gradient(-85deg, darken($primary, 0%) 30%, darken($primary, 15%) 100%);
+
 // Shadow/Light
-$shadow: rgba(0, 0, 0, 25%);
-$light: rgba(255, 255, 255, 60%);
+$shadow: rgba(0, 0, 0, 20%);
+$light: rgba(255, 255, 255, 50%);
 
 // 3DS Components
 $button-x: #5487c0;
