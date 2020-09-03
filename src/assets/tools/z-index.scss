@@ -1,0 +1,9 @@
+@import "../settings/z-index";
+
+@function z-index($key) {
+  @if map-has-key($z-index, $key) {
+    @return map-get($z-index, $key);
+  } @else {
+    @error 'There is no size defined for `#{$key}` in the `$z-index` map.';
+  }
+}

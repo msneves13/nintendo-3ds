@@ -1,0 +1,53 @@
+@import "../settings/animation";
+
+@keyframes openMobile {
+  0% {
+    z-index: 0;
+    top: 1.125rem;
+    filter: brightness(20%);
+    transform-origin: bottom;
+    transform: rotateX(-180deg) translateZ(50px);
+  }
+
+  30% {
+    top: 1.5rem;
+  }
+
+  90% {
+    top: 0;
+    z-index: 2;
+  }
+
+  100% {
+    top: 0;
+    z-index: 2;
+    filter: brightness(100%);
+    transform: rotateX(0) translateZ(0);
+  }
+}
+
+@keyframes backOpenMobile {
+  0% {
+    top: 1.125rem;
+    transform-origin: bottom;
+    transform: rotateX(-180deg) translateZ(50px);
+    z-index: 2;
+  }
+
+  13% {
+    z-index: 2;
+  }
+
+  30% {
+    top: 1.25rem;
+  }
+
+  90% {
+    top: 0;
+  }
+
+  100% {
+    z-index: 0;
+    transform: rotateX(0) translateZ(0);
+  }
+}

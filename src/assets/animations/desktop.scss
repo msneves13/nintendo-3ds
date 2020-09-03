@@ -1,0 +1,53 @@
+@import "../settings/animation";
+
+@keyframes openDesktop {
+  0% {
+    z-index: 0;
+    top: 2.25rem;
+    filter: brightness(20%);
+    transform-origin: bottom;
+    transform: rotateX(-180deg) translateZ(100px);
+  }
+
+  30% {
+    top: 3.125rem;
+  }
+
+  90% {
+    top: 0;
+    z-index: 2;
+  }
+
+  100% {
+    top: 0;
+    z-index: 2;
+    filter: brightness(100%);
+    transform: rotateX(0) translateZ(0);
+  }
+}
+
+@keyframes backOpenDesktop {
+  0% {
+    z-index: 2;
+    top: 2.25rem;
+    transform-origin: bottom;
+    transform: rotateX(-180deg) translateZ(100px);
+  }
+
+  15% {
+    z-index: 2;
+  }
+
+  30% {
+    top: 2.5rem;
+  }
+
+  90% {
+    top: 0;
+  }
+
+  100% {
+    z-index: 0;
+    transform: rotateX(0) translateZ(0);
+  }
+}

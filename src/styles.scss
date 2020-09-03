@@ -8,10 +8,20 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
+  overflow: hidden;
   min-width: unset;
   min-height: unset;
   background: $background;
   -webkit-font-smoothing: antialiased;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: auto;
+  grid-template-areas: '.' 'content' '.';
+
+  & > .content {
+    grid-area: content;
+  }
 }

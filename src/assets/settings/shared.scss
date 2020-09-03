@@ -1,0 +1,33 @@
+@import "../settings/color";
+@import "../settings/animation";
+@import "../tools/responsiveness";
+
+$border-width-mobile: 1px;
+$border-width-desktop: 2px;
+
+%border {
+  border: solid;
+  border-color: $border-color;
+  border-width: $border-width-mobile;
+
+  @include respond-to("sm") {
+    border-width: $border-width-desktop;
+  }
+}
+
+%animation {
+  animation-delay: $animation-delay;
+  animation-duration: $animation-time;
+  animation-direction: $animation-direction;
+  animation-iteration-count: $animation-count;
+}
+
+%display {
+  grid-area: display;
+  border-radius: 0.125rem;
+  background: $black-gradient;
+
+  @include respond-to("sm") {
+    border-radius: 0.25rem;
+  }
+}
