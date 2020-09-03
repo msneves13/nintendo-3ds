@@ -15,7 +15,7 @@
     background: $primary-gradient;
     animation-name: bottomCoverOpacity;
     border-radius: 0 0 1.25rem 1.25rem;
-    box-shadow: inset -0.0156rem 0.0313rem 0 0.0313rem $light, inset 0.0313rem 0 0 0.0078rem $shadow;
+    box-shadow: inset -0.0156rem 0.0313rem 0 0.0313rem $light, inset 0.0313rem 0 0 0.0078rem $shadow-light;
 
     display: grid;
     grid-area: bottom;
@@ -25,7 +25,7 @@
 
     @include respond-to("sm") {
       border-radius: 0 0 2.5rem 2.5rem;
-      box-shadow: inset -0.0313rem 0.0625rem 0 0.0625rem $light, inset 0.0625rem 0 0 0.0156rem $shadow;
+      box-shadow: inset -0.0313rem 0.0625rem 0 0.0625rem $light, inset 0.0625rem 0 0 0.0156rem $shadow-light;
     }
 
     & > .face {
@@ -55,7 +55,7 @@
           height: 3rem;
           margin: auto;
           border-radius: 50%;
-          box-shadow: inset -0.0313rem 0.0156rem 0 0.0313rem $shadow, -0.0313rem 0.0156rem $light;
+          box-shadow: inset -0.0313rem 0.0156rem 0 0.0313rem $shadow-light, -0.0313rem 0.0156rem $light;
 
           display: grid;
           grid-area: joystick;
@@ -66,7 +66,7 @@
           @include respond-to("sm") {
             width: 6rem;
             height: 6rem;
-            box-shadow: inset -0.0625rem 0.0313rem 0 0.0625rem $shadow, -0.0625rem 0.0313rem $light;
+            box-shadow: inset -0.0625rem 0.0313rem 0 0.0625rem $shadow-light, -0.0625rem 0.0313rem $light;
           }
 
           & > .stick {
@@ -78,13 +78,13 @@
             grid-area: stick;
             border-radius: 50%;
             position: relative;
-            box-shadow: inset 0.0625rem -0.0625rem 0 0 $shadow, inset 0 0 0 0.0625rem $light,
-              -0.125rem 0.0625rem 0 0 $shadow;
-            background: linear-gradient(225deg, rgb(131, 131, 131) 0%, rgba(214, 214, 214, 1) 100%);
+            box-shadow: inset 0.0625rem -0.0625rem 0 0 $shadow-light, inset 0 0 0 0.0625rem $light,
+              -0.125rem 0.0625rem 0 0 $shadow-light;
+            background: linear-gradient(225deg, #a7a3a3 0%, #e2e0e0 100%);
 
             @include respond-to("sm") {
-              box-shadow: inset 0.125rem -0.125rem 0 0 $shadow, inset 0 0 0 0.125rem $light,
-                -0.25rem 0.125rem 0 0 $shadow;
+              box-shadow: inset 0.125rem -0.125rem 0 0 $shadow-light, inset 0 0 0 0.125rem $light,
+                -0.25rem 0.125rem 0 0 $shadow-light;
             }
           }
         }
@@ -108,38 +108,42 @@
           & > .pad {
             @extend %border;
 
-            margin: -0.0313rem;
-            background: $secondary;
+            margin: -0.025rem;
+            background: $button;
 
             @include respond-to("sm") {
-              margin: -0.0625rem;
+              margin: -0.05rem;
             }
 
             &.top {
+              z-index: 1;
               grid-area: top;
               border-bottom: unset;
+              background: $pad-vertical;
               border-radius: 0.125rem 0.125rem 0 0;
-              box-shadow: inset -0.0313rem 0.0313rem 0 0 $light, -0.125rem 0 0 -0.0625rem $shadow;
+              box-shadow: inset -0.0313rem 0.0313rem 0 0 $light, -0.125rem 0.0313rem 0 -0.0625rem $shadow-light;
 
               @include respond-to("sm") {
                 border-radius: 0.25rem 0.25rem 0 0;
-                box-shadow: inset -0.0625rem 0.0625rem 0 0 $light, -0.25rem 0 0 -0.125rem $shadow;
+                box-shadow: inset -0.0625rem 0.0625rem 0 0 $light, -0.25rem 0.0625rem 0 -0.125rem $shadow-light;
               }
             }
 
             &.left {
+              z-index: 1;
               grid-area: left;
               border-right: unset;
               border-radius: 0.125rem 0 0 0.125rem;
-              box-shadow: -0.0625rem 0.0625rem 0 0 $shadow;
+              box-shadow: -0.0625rem 0.0625rem 0 0 $shadow-light;
 
               @include respond-to("sm") {
                 border-radius: 0.25rem 0 0 0.25rem;
-                box-shadow: -0.125rem 0.125rem 0 0 $shadow;
+                box-shadow: -0.125rem 0.125rem 0 0 $shadow-light;
               }
             }
 
             &.right {
+              z-index: 1;
               grid-area: right;
               border-left: unset;
               border-radius: 0 0.125rem 0.125rem 0;
@@ -152,21 +156,24 @@
             }
 
             &.bottom {
+              z-index: 1;
               grid-area: bottom;
               border-top: unset;
+              background: $pad-vertical;
               border-radius: 0 0 0.125rem 0.125rem;
-              box-shadow: inset -0.0313rem 0 0 $light, -0.0625rem 0 0 $shadow;
+              box-shadow: inset -0.0313rem 0 0 $light, -0.0625rem 0 0 $shadow-light;
 
               @include respond-to("sm") {
                 border-radius: 0 0 0.25rem 0.25rem;
-                box-shadow: inset -0.0625rem 0 0 $light, -0.125rem 0 0 $shadow;
+                box-shadow: inset -0.0625rem 0 0 $light, -0.125rem 0 0 $shadow-light;
               }
             }
 
             &.center {
-              z-index: -1;
+              z-index: 0;
               border: unset;
               grid-area: center;
+              background: $pad-center;
             }
           }
         }
@@ -179,8 +186,8 @@
         position: relative;
         padding: 0.6rem 0.25rem 0 0.25rem;
         border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
-        box-shadow: -0.0313rem 0.0156rem 0 0 $shadow, inset -0.0313rem -0.0156rem 0 0 $light,
-          inset 0.0313rem -0.0156rem 0 0 $shadow;
+        box-shadow: -0.0313rem 0.0156rem 0 0 $shadow-light, inset -0.0313rem -0.0156rem 0 0 $light,
+          inset 0.0313rem -0.0156rem 0 0 $shadow-light;
 
         display: grid;
         grid-area: middle;
@@ -192,8 +199,8 @@
           top: 0.125rem;
           padding: 1.2rem 0.5rem 0 0.5rem;
           border-radius: 0.5rem 0.5rem 1.5rem 1.5rem;
-          box-shadow: -0.0625rem 0.0313rem 0 0 $shadow, inset -0.0625rem -0.0313rem 0 0 $light,
-            inset 0.0313rem -0.0313rem 0 0 $shadow;
+          box-shadow: -0.0625rem 0.0313rem 0 0 $shadow-light, inset -0.0625rem -0.0313rem 0 0 $light,
+            inset 0.0313rem -0.0313rem 0 0 $shadow-light;
         }
 
         .display {
@@ -208,7 +215,7 @@
           height: 0.5rem;
           grid-area: home;
           border-radius: 0.25rem;
-          background: $secondary;
+          background: $button;
 
           @include respond-to("sm") {
             width: 2rem;
@@ -245,7 +252,7 @@
             @extend %border;
 
             border-radius: 50%;
-            box-shadow: inset -0.0313rem 0.0313rem 0 $light, -0.0625rem 0.0313rem 0 $shadow;
+            box-shadow: inset -0.0313rem 0.0313rem 0 $light, -0.0625rem 0.0313rem 0 $shadow-light;
 
             display: grid;
             grid-area: action;
@@ -254,7 +261,7 @@
             grid-template-areas: "text";
 
             @include respond-to("sm") {
-              box-shadow: inset -0.0625rem 0.0625rem 0 $light, -0.125rem 0.0625rem 0 $shadow;
+              box-shadow: inset -0.0625rem 0.0625rem 0 $light, -0.125rem 0.0625rem 0 $shadow-light;
             }
 
             & > span {
@@ -273,7 +280,7 @@
               width: 90%;
               height: 90%;
               grid-area: c;
-              background: $secondary;
+              background: $button;
             }
 
             &.x {
@@ -309,13 +316,13 @@
             margin: auto;
             width: 0.75rem;
             height: 0.75rem;
-            background: $secondary;
-            box-shadow: inset -0.0313rem 0.0313rem 0 $light, -0.0625rem 0.0313rem 0 $shadow;
+            background: $button;
+            box-shadow: inset -0.0313rem 0.0313rem 0 $light, -0.0625rem 0.0313rem 0 $shadow-light;
 
             @include respond-to("sm") {
               width: 1.5rem;
               height: 1.5rem;
-              box-shadow: inset -0.0625rem 0.0625rem 0 $light, -0.125rem 0.0625rem 0 $shadow;
+              box-shadow: inset -0.0625rem 0.0625rem 0 $light, -0.125rem 0.0625rem 0 $shadow-light;
             }
 
             &.start {
@@ -354,7 +361,7 @@
             @extend %border;
 
             margin-left: 0.625rem;
-            background: $secondary;
+            background: $shadow-dark;
             border-radius: 0.125rem 0.125rem 0 0;
 
             @include respond-to("sm") {
