@@ -4,27 +4,27 @@ $white: #fff;
 $mirage: #17212e;
 
 // Core
-$primary: #809ef0;
-$background: #c2c2c2;
+$primary: #97d9e9;
+$secondary: #ecb6e1;
 $border-color: $mirage;
-$secondary: #f06f6f;
+$background: linear-gradient(120deg, $primary 0%, $secondary 100%);
 
 // Gradients
 $black-gradient: linear-gradient(120deg,rgba(0, 0, 0, 1) 0%,rgba(17, 17, 17, 1) 53%,rgba(31, 31, 31, 1) 87%,rgba(33, 33, 33, 1) 100%);
 $primary-gradient: linear-gradient(-85deg, $primary 0%, darken($primary, 8%) 100%);
 
 // Light/Shadow
-$shadow-light: rgba(0, 0, 0, 20%);
+$light: rgb(194, 194, 194);
 $shadow-dark: rgba(0, 0, 0, 40%);
-$light: rgba(255, 255, 255, 50%);
+$shadow-light: rgba(0, 0, 0, 20%);
 
 
-// Components
+// Buttons
+$button: linear-gradient(230deg, $secondary 0%, darken($secondary, 8%) 100%);
 $button-x: linear-gradient(230deg, #5487c0 0%, darken(#5487c0, 8%) 100%);
 $button-y: linear-gradient(230deg, #53a484 0%, darken(#53a484, 8%) 100%);
 $button-a: linear-gradient(230deg, #fc6064 0%, darken(#fc6064, 8%) 100%);
 $button-b: linear-gradient(230deg, #dec15d 0%, darken(#dec15d, 8%) 100%);
-$button: linear-gradient(230deg, $secondary 0%, darken($secondary, 8%) 100%);
 
 // Center
 $center: linear-gradient(180deg, $primary 30%, darken($primary, 8%) 100%);

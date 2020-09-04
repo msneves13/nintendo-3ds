@@ -50,7 +50,6 @@
 
 .cover {
   display: grid;
-  transform-style: preserve-3d;
 
   &.back {
     @extend %border;
@@ -60,6 +59,7 @@
     height: 100%;
     position: absolute;
     border-bottom: unset;
+    transform-style: preserve-3d;
     background: $primary-gradient;
     animation-name: backOpenMobile;
     border-radius: 1.25rem 1.25rem 0.25rem 0.25rem;
@@ -128,7 +128,7 @@
       grid-area: left;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr 1fr;
-      grid-template-areas: "." "." "cover";
+      grid-template-areas: "." "sticker" "cover";
 
       &.left {
         grid-area: left;
@@ -136,6 +136,42 @@
 
       &.right {
         grid-area: right;
+      }
+
+      & > .stickers {
+        bottom: 10%;
+        right: 15%;
+        height: 100%;
+        width: 4.6875rem;
+        grid-area: sticker;
+        position: absolute;
+        background-size: contain;
+        transform: rotate(180deg);
+        background-repeat: no-repeat;
+        background-image: url("../../../assets/images/bulbasaur.png");
+
+        @include respond-to("sm") {
+          width: 9.375rem;
+        }
+
+        &::before {
+          top: 25%;
+          left: 180%;
+
+          content: "";
+          height: 100%;
+          width: 60px;
+          position: absolute;
+          background-size: contain;
+          transform: rotateY(180deg);
+          background-repeat: no-repeat;
+          background-image: url("../../../assets/images/mew.png");
+
+          @include respond-to("sm") {
+            width: 120px;
+            height: 120px;
+          }
+        }
       }
 
       & > .tape {
@@ -281,9 +317,8 @@
 
         display: grid;
         grid-area: slider;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         grid-template-rows: 0.5fr 1fr 1fr;
-        grid-template-areas: "piece" "." ".";
 
         @include respond-to("sm") {
           border-radius: 0.25rem;
@@ -293,6 +328,7 @@
         &.left {
           right: 0.0938rem;
           margin-right: auto;
+          grid-template-areas: "piece triangle" ". ." ". .";
 
           @include respond-to("sm") {
             right: 0.1875rem;
@@ -302,6 +338,7 @@
         &.right {
           left: 0.0938rem;
           margin-left: auto;
+          grid-template-areas: "triangle piece" ". ." ". .";
 
           @include respond-to("sm") {
             left: 0.1875rem;
@@ -342,6 +379,105 @@
         }
       }
 
+      & > .triangle {
+        top: 5.875rem;
+        position: absolute;
+        border-top: 1.25rem solid $shadow-light;
+        border-right: 0.375rem solid transparent;
+
+        @include respond-to("sm") {
+          top: 11.75rem;
+          border-top: 2.5rem solid $shadow-light;
+          border-right: 0.75rem solid transparent;
+        }
+
+        &::before {
+          content: "";
+
+          top: 0.0313rem;
+          left: -0.0313rem;
+          width: 0.125rem;
+          height: 0.125rem;
+          border-radius: 50%;
+          position: absolute;
+          background: $shadow-light;
+
+          @include respond-to("sm") {
+            top: 0.0625rem;
+            left: -0.0625rem;
+            width: 0.25rem;
+            height: 0.25rem;
+          }
+        }
+
+        &.left {
+          left: 15%;
+          grid-area: left;
+        }
+
+        &.right {
+          right: 15%;
+          grid-area: right;
+          transform: rotateY(-180deg);
+        }
+      }
+
+      & > .text {
+        top: 6.375rem;
+        font-weight: 900;
+        position: absolute;
+        font-size: 0.35rem;
+        color: $shadow-light;
+        text-shadow: -0.5px 0.5px 0px rgb(255 255 255 / 8%);
+
+        &::before {
+          content: "OFF";
+          position: absolute;
+          top: 1.125rem;
+
+          @include respond-to("sm") {
+            top: 2.25rem;
+          }
+        }
+
+        @include respond-to("sm") {
+          top: 12.75rem;
+          font-size: 0.7rem;
+        }
+
+        &.left {
+          left: 0.875rem;
+
+          &::before {
+            left: -0.5rem;
+
+            @include respond-to("sm") {
+              left: -1rem;
+            }
+          }
+
+          @include respond-to("sm") {
+            left: 1.75rem;
+          }
+        }
+
+        &.right {
+          right: 0.875rem;
+
+          &::before {
+            right: -0.5rem;
+
+            @include respond-to("sm") {
+              right: -1rem;
+            }
+          }
+
+          @include respond-to("sm") {
+            right: 1.75rem;
+          }
+        }
+      }
+
       & > .tape {
         @extend %border;
         @extend %animation;
@@ -352,7 +488,6 @@
         margin-top: auto;
         position: relative;
         border-bottom: unset;
-        background: $background;
         animation-name: changeCoverColor;
 
         &.left {
